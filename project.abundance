@@ -15,8 +15,7 @@
     },
     {
       "name": "Radius",
-      "ioValue": 2,
-      "currentEquation": "2"
+      "ioValue": 2
     }
   ],
   "topLevel": true,
@@ -36,7 +35,7 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.3628048780487805,
+      "y": 0.15384615384615385,
       "uniqueID": "id-566",
       "name": "ShapeToFillet",
       "type": "geometry"
@@ -66,7 +65,7 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.49390243902439024,
+      "y": 0.24615384615384617,
       "uniqueID": "id-575",
       "name": "RegionShape",
       "type": "geometry"
@@ -74,7 +73,7 @@
     {
       "atomType": "Input",
       "x": 0.025384615384615384,
-      "y": 0.5862101313320826,
+      "y": 0.3384615384615385,
       "uniqueID": "id-581",
       "name": "Radius"
     }
