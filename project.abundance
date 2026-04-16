@@ -1,13 +1,107 @@
 {
-    "atomType": "Molecule",
-    "x": 0,
-    "y": 0,
-    "uniqueID": "id-563",
-    "name": "fillet_in_BBox",
-    "topLevel": true,
-    "allAtoms": [],
-    "allConnectors": [],
-    "unitsKey": "Unitless",
-    "fileTypeVersion": 1,
-    "filetypeVersion": 1
+  "atomType": "Molecule",
+  "x": 0,
+  "y": 0,
+  "uniqueID": "id-563",
+  "name": "fillet_in_BBox",
+  "ioValues": [
+    {
+      "name": "ShapeToFillet",
+      "ioValue": "__GEOMETRY_INPUT__"
+    },
+    {
+      "name": "RegionShape",
+      "ioValue": "__GEOMETRY_INPUT__"
+    },
+    {
+      "name": "Radius",
+      "ioValue": 2,
+      "currentEquation": "2"
+    }
+  ],
+  "topLevel": true,
+  "allAtoms": [
+    {
+      "atomType": "Output",
+      "x": 0.98,
+      "y": 0.5,
+      "uniqueID": "id-564",
+      "ioValues": [
+        {
+          "name": "number or geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.3628048780487805,
+      "uniqueID": "id-566",
+      "name": "ShapeToFillet",
+      "type": "geometry"
+    },
+    {
+      "atomType": "Code",
+      "x": 0.37571312143439284,
+      "y": 0.5274390243902439,
+      "uniqueID": "id-569",
+      "ioValues": [
+        {
+          "name": "shape",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "radius",
+          "ioValue": 2
+        },
+        {
+          "name": "region",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "codeVersion": 1,
+      "code": "const Inputs = [\n  { inputName: \"shape\", type: \"geometry\", defaultValue: null },\n  { inputName: \"radius\", type: \"number\", defaultValue: 2 },\n  { inputName: \"region\", type: \"geometry\", defaultValue: null },\n];\n\nlet assembly = library[shape];\nconsole.log(region)\nlet edgeFilter;\nif (region !== '__GEOMETRY_INPUT__') {\n  let bounds = await GetBounds(region);\n  // Fillet all edges within the bounding box (removed direction filter)\n  edgeFilter = (e) => e.inBox(bounds.min, bounds.max);\n} else {\n  // Fillet all edges on the entire shape\n  edgeFilter = (e) => true;\n}\n\nreturn await AssemblyMap(assembly, async (leaf) => {\n  let solid = leaf.geometry[0];\n  let filleted = solid.fillet(radius, edgeFilter);\n  return { ...leaf, geometry: [filleted] };\n});"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.49390243902439024,
+      "uniqueID": "id-575",
+      "name": "RegionShape",
+      "type": "geometry"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.5862101313320826,
+      "uniqueID": "id-581",
+      "name": "Radius"
+    }
+  ],
+  "allConnectors": [
+    {
+      "ap2Name": "shape",
+      "ap1ID": "id-566",
+      "ap2ID": "id-569"
+    },
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-569",
+      "ap2ID": "id-564"
+    },
+    {
+      "ap2Name": "region",
+      "ap1ID": "id-575",
+      "ap2ID": "id-569"
+    },
+    {
+      "ap2Name": "radius",
+      "ap1ID": "id-581",
+      "ap2ID": "id-569"
+    }
+  ],
+  "unitsKey": "Unitless",
+  "fileTypeVersion": 1,
+  "filetypeVersion": 1
 }
